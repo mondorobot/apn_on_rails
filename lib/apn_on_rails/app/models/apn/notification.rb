@@ -58,7 +58,13 @@ class APN::Notification < APN::Base
     end
     if self.custom_properties
       self.custom_properties.each do |key,value|
-        result["#{key}"] = "#{value}"
+        if value.is_a? String
+          Rails.logger.info "STRING"
+          result["#{key}"] = "#{value}"
+        else
+          Rails.logger.info "HASH"
+          result["#{key}"] = value
+        end
       end
     end
     result
